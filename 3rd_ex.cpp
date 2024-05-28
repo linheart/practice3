@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void remove_letters(vector<string> &arr);
+void remove_letters(vector<string>&);
 
 int main() {
   vector<string> arr = {"123a32", "132143", "d1123"};
@@ -24,7 +24,7 @@ int main() {
 }
 
 void remove_letters(vector<string> &arr) {
-  transform(arr.begin(), arr.end(), arr.begin(), [](string &str) {
+  transform(arr.begin(), arr.end(), arr.begin(), [](string str) {
     str.erase(
         remove_if(str.begin(), str.end(), [](char c) { return isalpha(c); }),
         str.end());
