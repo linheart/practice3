@@ -20,7 +20,9 @@ int main() {
                        {"Ilya", {"lab3", 4}},   {"Semen", {"lab4", 3}},
                        {"Katya", {"lab2", 4}},  {"Sasha", {"lab5", 3}}};
 
-  for (auto &student : students) {
+  sort_students(students);
+
+  for (auto student : students) {
     cout << student.first << ": " << student.second.first << "("
          << student.second.second << ")" << endl;
   }
@@ -30,5 +32,5 @@ int main() {
 
 void sort_students(Students &students) {
   sort(students.begin(), students.end(),
-       [](auto &a, auto &b) { return a.second.second < b.second.second; });
+       [](auto a, auto b) { return a.second.second < b.second.second; });
 }
