@@ -27,7 +27,7 @@ int main() {
 void remove_students(vector<string> &students,
                      vector<string> &students_on_leave) {
   students.erase(remove_if(students.begin(), students.end(),
-                           [&students_on_leave](string &student) {
+                           [students_on_leave](string student) {
                              return find(students_on_leave.begin(),
                                          students_on_leave.end(),
                                          student) != students_on_leave.end();
