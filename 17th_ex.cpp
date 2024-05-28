@@ -1,6 +1,10 @@
+/* Дан массив целых чисел, где каджое число представляют
+высоту столбца. Необходимо вычислить объем  воды, который
+может быть удержан после дождя.
+*/
+
 #include <algorithm>
 #include <iostream>
-#include <iterator>
 #include <numeric>
 #include <vector>
 
