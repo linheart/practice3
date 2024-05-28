@@ -14,7 +14,22 @@ struct Student {
   int score;
 };
 
-void transformScores(vector<Student> &students) {
+void transform_scores(vector<Student> &);
+
+int main() {
+  vector<Student> students = {
+      {"Ivan", 90}, {"Maria", 75}, {"Vasya", 63}, {"Semen", 44}};
+
+  transform_scores(students);
+
+  for (auto student : students) {
+    cout << student.name << ": " << student.score << endl;
+  }
+
+  return 0;
+}
+
+void transform_scores(vector<Student> &students) {
   for (auto it = students.begin(); it != students.end(); ++it) {
     if (it->score >= 84) {
       it->score = 5;
@@ -26,17 +41,4 @@ void transformScores(vector<Student> &students) {
       it->score = 0;
     }
   }
-}
-
-int main() {
-  vector<Student> students = {
-      {"Ivan", 90}, {"Maria", 75}, {"Vasya", 63}, {"Semen", 44}};
-
-  transformScores(students);
-
-  for (auto student : students) {
-    cout << student.name << ": " << student.score << endl;
-  }
-
-  return 0;
 }
