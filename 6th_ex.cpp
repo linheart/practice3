@@ -15,14 +15,7 @@ struct Student {
   vector<int> grades;
 };
 
-void relocate_students(vector<Student> &students) {
-  students.erase(remove_if(students.begin(), students.end(),
-                           [](Student student) {
-                             return count(student.grades.begin(),
-                                          student.grades.end(), 3) > 1;
-                           }),
-                 students.end());
-}
+void relocate_students(vector<Student> &);
 
 int main() {
   vector<Student> students = {{"Ivan", {5, 3, 3, 4}},
@@ -38,4 +31,13 @@ int main() {
   }
 
   return 0;
+}
+
+void relocate_students(vector<Student> &students) {
+  students.erase(remove_if(students.begin(), students.end(),
+                           [](Student student) {
+                             return count(student.grades.begin(),
+                                          student.grades.end(), 3) > 1;
+                           }),
+                 students.end());
 }
