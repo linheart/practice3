@@ -1,43 +1,41 @@
-/* Есть массив случайных чисел. На вход подается число n.
-Необходимо отсортировать массив таким образом, чтобы каждые
-n элементов были в порядке возрастания, а следующие n элементов
-были в порядке убывания, и так до конца массива.
+/*Семен сделал 7 лабораторных работ по программированию.
+Он решил узнать, насколько классный его код. Для этого
+Семен решил использовать индекс Хирша. Необходимо вычислить
+индекс Хирша Семена.
 */
 
 #include <algorithm>
 #include <iostream>
-#include <random>
 #include <vector>
 
 using namespace std;
 
-void sort_arr(vector<int> &, int);
+int calculate_h_index(vector<int> &);
 
 int main() {
-  int n = 3;
-  vector<int> arr = {90, 52, 19, 21, 43, 69, 3, 30, 17, 44};
+  vector<int> citations = {3, 7, 9, 6, 5, 10, 6};
 
-  for (auto it : arr) {
-    cout << it << ' ';
-  }
+  int h_index = calculate_h_index(citations);
 
-  sort_arr(arr, n);
-  cout << endl;
-  for (auto it : arr) {
-    cout << it << ' ';
-  }
+  cout << h_index << endl;
 
   return 0;
 }
 
-void sort_arr(vector<int> &arr, int n) {
-  int size = arr.size();
+int calculate_h_index(vector<int> &citations) {
 
-  for (int i = 0; i < size; i += n) {
-    sort(arr.begin() + i, min(arr.begin() + i + n, arr.end()));
-  }
+  sort(citations.begin(), citations.end(), greater<int>());
 
-  for (int i = n; i < size; i += 2 * n) {
-    sort(arr.begin() + i, min(arr.begin() + i + n, arr.end()), greater<int>());
-  }
+  int h_index = 0;
+  int position = 0;
+
+  for_each(citations.begin(), citations.end(),
+           [&h_index, &position](int citation) {
+             position++;
+             if (citation >= position) {
+               h_index = position;
+             }
+           });
+
+  return h_index;
 }
