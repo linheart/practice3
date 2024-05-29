@@ -1,23 +1,40 @@
-/* У Васи есть баллы по физике. Необходимо вычислить
-сумму баллов, чтобы удостовериться, есть ли шанс получить автомат.
+/* Весь год Коля списывал контрольные у Васи. Вася
+решил проверить, совпадают ли их оценки. Необходимо
+сравнить все оценки Коли и Васи и вывести несовпадающие
+оценки.
 */
 
+#include <algorithm> // Для mismatch
 #include <iostream>
-#include <numeric>
 #include <vector>
 
 using namespace std;
 
-int calculateTotalScore(const vector<int> &scores) {
-  return accumulate(scores.begin(), scores.end(), 0);
-}
+void find_mismatched_grades(vector<int>, vector<int>);
 
 int main() {
-  vector<int> scores = {10, 15, 7, 9, 13, 14, 8};
+  vector<int> kolya_grades = {85, 88, 78, 92, 85};
+  vector<int> vasya_grades = {85, 90, 78, 92, 88};
 
-  int totalScore = calculateTotalScore(scores);
-
-  cout << "Сумма баллов Васи: " << totalScore << endl;
+  find_mismatched_grades(vasya_grades, kolya_grades);
 
   return 0;
+}
+
+void find_mismatched_grades(vector<int> vasya_grades,
+                            vector<int> kolya_grades) {
+  auto mismatchPair = mismatch(vasya_grades.begin(), vasya_grades.end(),
+                               kolya_grades.begin(), kolya_grades.end());
+
+  while (mismatchPair.first != vasya_grades.end() &&
+         mismatchPair.second != kolya_grades.end()) {
+    cout << "Vasya: " << *mismatchPair.first
+         << ", Kolya: " << *mismatchPair.second << endl;
+
+    ++mismatchPair.first;
+    ++mismatchPair.second;
+
+    mismatchPair = mismatch(mismatchPair.first, vasya_grades.end(),
+                            mismatchPair.second, kolya_grades.end());
+  }
 }
