@@ -1,34 +1,33 @@
-/*Иван решил написать предложение, в котором есть
-каждая буква алфавита. Необходимо определить,
-является ли строка панаграмой.
+/* У Васи был набор целых чисел. Коля решил пошутить над Васей
+и добавил в набор буквы. Необходимо найти буквы в наборе и удалить их.
 */
 
 #include <algorithm>
-#include <cctype>
 #include <iostream>
-#include <set>
-#include <string>
+#include <vector>
 
 using namespace std;
 
-bool is_pangram(string);
+void remove_letters(vector<string> &);
 
 int main() {
-  string sentence = "The quick brown fox jumps over the lazy dog";
+  vector<string> arr = {"123a32", "132143", "d1123"};
 
-  cout << is_pangram(sentence) << endl;
+  remove_letters(arr);
+
+  for (auto it : arr) {
+    cout << it << ' ';
+  }
+  cout << endl;
 
   return 0;
 }
 
-bool is_pangram(string sentence) {
-  set<char> alphabet;
-
-  for_each(sentence.begin(), sentence.end(), [&alphabet](char ch) {
-    if (isalpha(ch)) {
-      alphabet.insert(tolower(ch));
-    }
+void remove_letters(vector<string> &arr) {
+  transform(arr.begin(), arr.end(), arr.begin(), [](string str) {
+    str.erase(
+        remove_if(str.begin(), str.end(), [](char c) { return isalpha(c); }),
+        str.end());
+    return str;
   });
-
-  return alphabet.size() == 26;
 }
