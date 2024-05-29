@@ -1,41 +1,43 @@
-/*Семен сделал 7 лабораторных работ по программированию.
-Он решил узнать, насколько классный его код. Для этого
-Семен использовать индекс Хирша. Необходимо вычислить
-индекс Хирша Семена.
+/* Есть массив случайных чисел. На вход подается число n.
+Необходимо отсортировать массив таким образом, чтобы каждые
+n элементов были в порядке возрастания, а следующие n элементов
+были в порядке убывания, и так до конца массива.
 */
 
 #include <algorithm>
 #include <iostream>
+#include <random>
 #include <vector>
 
 using namespace std;
 
-int calculate_h_index(vector<int> &);
+void sort_arr(vector<int> &, int);
 
 int main() {
-  vector<int> citations = {3, 7, 9, 6, 5, 10, 6};
+  int n = 3;
+  vector<int> arr = {90, 52, 19, 21, 43, 69, 3, 30, 17, 44};
 
-  int h_index = calculate_h_index(citations);
+  for (auto it : arr) {
+    cout << it << ' ';
+  }
 
-  cout << h_index << endl;
+  sort_arr(arr, n);
+  cout << endl;
+  for (auto it : arr) {
+    cout << it << ' ';
+  }
 
   return 0;
 }
 
-int calculate_h_index(vector<int> &citations) {
+void sort_arr(vector<int> &arr, int n) {
+  int size = arr.size();
 
-  sort(citations.begin(), citations.end(), greater<int>());
+  for (int i = 0; i < size; i += n) {
+    sort(arr.begin() + i, min(arr.begin() + i + n, arr.end()));
+  }
 
-  int h_index = 0;
-  int position = 0;
-
-  for_each(citations.begin(), citations.end(),
-           [&h_index, &position](int citation) {
-             position++;
-             if (citation >= position) {
-               h_index = position;
-             }
-           });
-
-  return h_index;
+  for (int i = n; i < size; i += 2 * n) {
+    sort(arr.begin() + i, min(arr.begin() + i + n, arr.end()), greater<int>());
+  }
 }
